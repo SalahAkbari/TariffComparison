@@ -1,9 +1,9 @@
-# BankingTransactions
-Banking with Microservices architecture and .NET Core  
+# Tariff Comparison
+Compare products based on their annual costs with Microservices architecture and .NET Core  
  
 The application is build based on the microservices architecture. The high level design of Back-end architecture is: 
 * Identity Microservice - Authenticates user based on username, password and issues a JWT Bearer token which contains Claims-based identity information in it. 
-* Transaction Microservice - Handles account transactions like Get balance, deposit, withdraw
+* Tariff Microservice - Retrieve the products via GET
 * API Gateway - Acts as a center point of entry to the back-end application, Provides data aggregation and communication path to microservices. 
 *An API gateway takes all API calls from clients, then routes them to the appropriate microservice with request routing, composition, and protocol translation. Typically, it handles a request by invoking multiple microservices and aggregating the results, to determine the best path. It can translate between web protocols and web. 
  
