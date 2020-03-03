@@ -87,9 +87,9 @@ namespace Tariff.Client
         {
             Console.WriteLine();
             Console.Write("Enter the user name: ");
-            var username = "anna"; // Console.ReadLine();
+            var username = Console.ReadLine();
             Console.Write("Enter the password: ");
-            var password = "anna7654"; // Console.ReadLine();
+            var password = Console.ReadLine();
             return new Login() { UserName = username, Password = password };
         }
 
