@@ -34,8 +34,11 @@ Solution Structure
 o Handles the authentication part using username, password as input parameter and issues a JWT Bearer token with Claims-Identity info in it.
 * Tariff.Comparison  
 o Supports an http methods 'GetProducts'. Receives http request for this method. 
+
 o Handles exception through a middleware 
+
 o Calls the appropriate function in the 'Tariff' framework 
+
 o Returns the tariff response result back to the client
 * Tariff.Framework  o Defines the business exceptions and domain model validation o Defines the required data types for the framework 'Struct', 'Enum', 'Consants' o Implements the business logic o Performs the task of mapping the domain model to entity model and vice versa o Registers the Interfaces and its Implementation in to Service Collection through dependency injection
 * Tariff.Gateway  o Validates the incoming Http request by checking for authorized JWT token in it. o Reroute the Http request to a downstream service. 
