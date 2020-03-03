@@ -5,6 +5,7 @@ The application is build based on the microservices architecture. The high level
 * Identity Microservice - Authenticates user based on username, password and issues a JWT Bearer token which contains Claims-based identity information in it. 
 * Tariff Microservice - Retrieve the products via GET
 * API Gateway - Acts as a center point of entry to the back-end application, Provides data aggregation and communication path to microservices. 
+
 *An API gateway takes all API calls from clients, then routes them to the appropriate microservice with request routing, composition, and protocol translation. Typically, it handles a request by invoking multiple microservices and aggregating the results, to determine the best path. It can translate between web protocols and web. 
  
 Security : JWT Token based Authentication: JWT Token based authentication is implementated to secure the WebApi services. Identity Microservice acts as a Auth server and issues a valid token after validating the user credentitals. The API Gateway sends the token to the client. The client app uses the token for the subsequent request. 
