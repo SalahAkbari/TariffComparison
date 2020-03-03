@@ -20,9 +20,9 @@ namespace Tariff.Identity.Services
     {
         private readonly List<User> _users = new List<User>
         {
-            new User { AccountNumber = 1234567, Currency = "USD", FullName = "John Smith", Username = "johnsmith", Password = "john1234" },
-            new User { AccountNumber = 7654321, Currency = "USD", FullName = "Anna Brooke", Username = "anna", Password = "anna7654" },
-            new User { AccountNumber = 1859624, Currency = "USD", FullName = "Jack White", Username = "jackwhite", Password = "jack1859" }
+            new User { UserId = 1234567, FullName = "John Smith", Username = "johnsmith", Password = "john1234" },
+            new User { UserId = 7654321, FullName = "Anna Brooke", Username = "anna", Password = "anna7654" },
+            new User { UserId = 1859624, FullName = "Jack White", Username = "jackwhite", Password = "jack1859" }
         };
 
         private readonly AppSettings _appSettings;
@@ -47,8 +47,7 @@ namespace Tariff.Identity.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("accountnumber", user.AccountNumber.ToString()),
-                    new Claim("currency", user.Currency),
+                    new Claim("userid", user.UserId.ToString()),
                     new Claim("name", user.FullName)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),

@@ -26,25 +26,20 @@ namespace Tariff.Comparison.Services
                 var paresedToken = tokenHandler.ReadJwtToken(token);
 
                 var account = paresedToken.Claims
-                    .Where(c => c.Type == "accountnumber")
+                    .Where(c => c.Type == "userid")
                     .FirstOrDefault();
 
                 var name = paresedToken.Claims
                     .Where(c => c.Type == "name")
                     .FirstOrDefault();
 
-                var currency = paresedToken.Claims
-                    .Where(c => c.Type == "currency")
-                    .FirstOrDefault();
-
                 return new IdentityModel() {
-                    AccountNumber = Convert.ToInt32(account.Value),
-                    FullName = name.Value,
-                    Currency = currency.Value
+                    UserId = Convert.ToInt32(account.Value),
+                    FullName = name.Value
                 };
             }
 
-            throw new ArgumentNullException("accountnumber");
+            throw new ArgumentNullException("userid");
         }
     }
 }
