@@ -14,7 +14,6 @@ Technologies
     SQL Server 
 Opensource Tools Used 
     Automapper (For object-to-object mapping) 
-    Entity Framework Core (For Data Access) 
     Swashbucke (For API Documentation) 
     XUnit (For Unit test case) 
     Ocelot (For API Gateway Aggregation) 
@@ -22,44 +21,38 @@ Opensource Tools Used
 End-points configured and accessible through API Gateway 
  
     Route: "/user/authenticate" [HttpPost] - To authenticate user and issue a token 
-    Route: "/account/balance" [HttpGet] - To retrieve account balance. 
-    Route: "/account/deposit" [HttpPost] - To deposit amount in an account. 
-    Route: "/account/withdraw" [HttpPost] - To withdraw amount from an account. 
+    Route: "/tariff/GetProducts/{usage}" [HttpGet] - To retrieve the products 
  
 End-points implemented at the Microservice level 
  
     Route: "/api/user/authenticate" [HttpPost]- To authenticate user and issue a token 
-    Route: "/api/account/balance" [HttpGet]- To retrieve account balance. 
-    Route: "/api/account/deposit" [HttpPost]- To deposit amount in an account. 
-    Route: "/api/account/withdraw" [HttpPost]- To withdraw amount from an account. 
- 
+    Route: "/api/tariff/GetProducts/{usage}" [HttpGet]- To retrieve the products
+    
 Solution Structure 
-* Banking.Identity  o Handles the authentication part using username, password as input parameter and issues a JWT Bearer token with Claims-Identity info in it.
-* Banking.Transactions  o Supports three http methods 'Balance', 'Deposit' and 'Withdraw'. Receives http request for these methods. o Handles exception through a middleware o Reads Identity information from the Authorization Header which contains the Bearer token o Calls the appropriate function in the 'Transaction' framework 
-o Returns the transaction response result back to the client
-* Banking.Framework  o Defines the interface for the repository (data) layer and service (business) layer o Defines the domain model (Business Objects) and Entity Model (Data Model) o Defines the business exceptions and domain model validation o Defines the required data types for the framework 'Struct', 'Enum', 'Consants' o Implements the business logic to perform the required account transactions o Implements the data logic to read and update the data from and to the SQL database o Performs the task of mapping the domain model to entity model and vice versa o Handles the db update concurrency conflict o Registers the Interfaces and its Implementation in to Service Collection through dependency injection
-* Banking.Gateway  o Validates the incoming Http request by checking for authorized JWT token in it. o Reroute the Http request to a downstream service. 
-* Banking.Client o A console client app that connects to Api Gateway, can be used to login with username, password and perform transactions like 'Balance', 'Deposit' and 'Withdraw' against a account. 
+* Tariff.Identity  o Handles the authentication part using username, password as input parameter and issues a JWT Bearer token with Claims-Identity info in it.
+* Tariff.Comparison  o Supports an http methods 'GetProducts'. Receives http request for this method. o Handles exception through a middleware o Calls the appropriate function in the 'Tariff' framework 
+o Returns the tariff response result back to the client
+* Tariff.Framework  o Defines the business exceptions and domain model validation o Defines the required data types for the framework 'Struct', 'Enum', 'Consants' o Implements the business logic o Performs the task of mapping the domain model to entity model and vice versa o Registers the Interfaces and its Implementation in to Service Collection through dependency injection
+* Tariff.Gateway  o Validates the incoming Http request by checking for authorized JWT token in it. o Reroute the Http request to a downstream service. 
+* Tariff.Client o A console client app that connects to Api Gateway, can be used to login with username, password and perform the tariff request to get the products. 
 Exception Handling 
 A Middleware is written to handle the exceptions and it is registered in the startup to run as part of http request. Every http request, passes through this exception handling middleware and then executes the Web API controller action method. 
 * If the action method is successful then the success response is send back to the client.
 * If any exception is thrown by the action method, then the exception is caught and handled by the Middleware and appropriate response is sent back to the client. 
 Swagger: API Documentation 
-Swashbuckle Nuget package added to the "Banking.Transaction Microservice" and Swagger Middleware configured in the startup.cs for API documentation. when running the WebApi service, the swagger UI can be accessed through the swagger endpoint "/swagger". 
-To run the application 
-*  Run the scirpt against SQL server to create the necessary tables and sample data  
-*  Open the solution (.sln) in Visual Studio 2019  
-*  Configure the SQL connection string in Banking.Transaction -> Appsettings.json file  
-*  Configure the AppInsights Instrumentation Key in Banking.Transaction -> Appsettings.json file. I comment out the AppInsight related code in Startup.cs file as I didn’t have a key and didn't require log.  
+Swashbuckle Nuget package added to the "Tariff.Comparison Microservice" and Swagger Middleware configured in the startup.cs for API documentation. when running the WebApi service, the swagger UI can be accessed through the swagger endpoint "/swagger". 
+To run the application  
+*  Open the solution (.sln) in Visual Studio 2019    
+*  It is not necessary, but if you would like you can configure the AppInsights Instrumentation Key in Tariff.Comparison -> Appsettings.json file. I comment out the AppInsight related code in Startup.cs file as I didn’t have a key and didn't require log.  
 
-Check the Banking.Identity -> UserService.cs file for Identity info. User details are hard coded for few accounts in Identity service which can be used to run the app. For instance, you can use the following credential to log in as a client: 
+Check the Tariff.Identity -> UserService.cs file for Identity info. User details are hard coded for few accounts in Identity service which can be used to run the app. For instance, you can use the following credential to log in as a client: 
  
 Account Number  Currency   Username  Password 1234567 USD johnsmith john1234 
  
 * Run the following projects in the solution  
-* Banking.Identity 
-* Banking.Transaction 
-* Banking.Gateway 
-* Banking.Client 
-* Gateway host and port should be configured correctly in the  Banking.Client 
-* Banking.Idenity and Banking.Transaction service host and port should be configured correctly in the gateway -> configuration.json 
+* Tariff.Identity 
+* Tariff.Comparison 
+* tariff.Gateway 
+* Tariff.Client 
+* Gateway host and port should be configured correctly in the  Tariff.Client 
+* Tariff.Idenity and Tariff.Comparison service host and port should be configured correctly in the gateway -> configuration.json 
