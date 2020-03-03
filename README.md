@@ -52,7 +52,7 @@ To run the application
 
 Check the Tariff.Identity -> UserService.cs file for Identity info. User details are hard coded for few accounts in Identity service which can be used to run the app. For instance, you can use the following credential to log in as a client: 
  
-Account Number  Currency   Username  Password 1234567 USD johnsmith john1234 
+UserId Username  Password 1234567 anna anna7654 
  
 * Run the following projects in the solution  
 * Tariff.Identity 
